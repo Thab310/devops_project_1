@@ -1,0 +1,55 @@
+---
+- hosts: jenkins-master
+  become: true
+  tasks:
+    - name: Add Jenkins key
+      apt_key: 
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        state: present
+
+    - name: Add Jenkins repository
+      apt_repository: 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+        state: present
+
+    - name: Install java
+      apt: 
+        name: openjdk-17-jre
+        state: present
+
+    - name: install jenkins 
+      apt: 
+        name: jenkins
+        state: present
+
+    - name: start jenkins service
+      service:
+        name: jenkins
+        state: started   
+
+    - name: enable jenkins to start at boot time  
+      service:
+        name: jenkins
+        enabled: yes  
+        
+    # Refactor the following commands
+    - name: Upgrade packages
+      apt:
+        name: '*'
+        state: latest
+      async: 0
+      poll: 0
+
+    - name: Install ncat
+      apt:
+        name: ncat
+        state: present
+
+    - name: Install xmlstarlet
+      apt:
+        name: xmlstarlet
+        state: present    
+    
+    - name: Execute the script on the remote EC2 instance
+      script: /tmp/get-InitialPassword.sh  # Replace with the actual path to your script file
+     
