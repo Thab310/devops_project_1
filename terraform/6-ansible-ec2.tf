@@ -27,7 +27,7 @@ resource "aws_instance" "ansible" {
 
   //copy jenkins master bash script
   provisioner "file" {
-    source      = "../userdata/get-InitialPassword.sh"
+    source      = "../ec2-userdata/get-InitialPassword.sh"
     destination = "/tmp/get-InitialPassword.sh"
   }
 
@@ -39,7 +39,7 @@ resource "aws_instance" "ansible" {
 
   //copy jenkins slave bash script
   provisioner "file" {
-    source      = "../userdata/jenkins-node.sh"
+    source      = "../ec2-userdata/jenkins-node.sh"
     destination = "/tmp/jenkins-node.sh"
   }
 
