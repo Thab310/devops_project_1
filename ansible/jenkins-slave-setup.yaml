@@ -65,6 +65,15 @@
         jenkins_password: "{{ jenkins_password }}"
         device_name: "{{ device_name }}"    
         worker_pem: "{{ key_file_contents.stdout }}"
+  
+  - name: Run Ansible with multiple commands
+    ansible.builtin.command: "{{ item }}"
+    with_items:
+      - apt install unzip
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - unzip awscliv2.zip
+      - ./aws/install
+      - apt install jq -y
 
   - name: Execute jenkins-node.sh script
     script: /tmp/jenkins-node.sh
