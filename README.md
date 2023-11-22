@@ -53,6 +53,6 @@ Which event would you like to trigger this webhook: just the push event
 2. Setup webhook in order to run jenkins pipeline automatically 
 ### 4. Diagram
 ### What can I do better?
-2. Find a way to dynamically add webhook payload url
+
 
 
